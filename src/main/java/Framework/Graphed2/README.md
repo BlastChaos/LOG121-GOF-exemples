@@ -80,7 +80,7 @@ LineStyleEditor --|> PropertyEditorSupport
 PointNode ..|> Node
 
 PropertySheet --|> JPanel
-SimpleGraph --|> Graph
+SimpleGraph -up-|> Graph
 
 ToolBar --|> JPanel
 @enduml
