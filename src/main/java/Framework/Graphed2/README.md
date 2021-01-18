@@ -5,49 +5,83 @@ java -jar plantuml-dependency-cli-1.4.0-jar-with-dependencies.jar -o src/main/ja
 todo: test
 ```plantuml
 @startuml
-abstract class Framework.Graphed2.AbstractEdge
-abstract class Framework.Graphed2.Graph
-annotation java.lang.SuppressWarnings
-class Framework.Graphed2.CircleNode
-class Framework.Graphed2.FormLayout
-class Framework.Graphed2.GraphFrame
-class Framework.Graphed2.GraphPanel
-class Framework.Graphed2.JFrame
-class Framework.Graphed2.JPanel
-class Framework.Graphed2.LineEdge
-class Framework.Graphed2.LineStyle
-class Framework.Graphed2.LineStyleEditor
-class Framework.Graphed2.PointNode
-class Framework.Graphed2.PropertyEditorSupport
-class Framework.Graphed2.PropertySheet
-class Framework.Graphed2.SimpleGraph
-class Framework.Graphed2.SimpleGraphEditor
-class Framework.Graphed2.ToolBar
-class java.util.List
-interface Framework.Graphed2.Edge
-interface Framework.Graphed2.LayoutManager
-interface Framework.Graphed2.Node
-interface Framework.Graphed2.Serializable
-interface java.lang.Cloneable
-Framework.Graphed2.AbstractEdge --|> Framework.Graphed2.Edge
-Framework.Graphed2.Graph ..> java.util.List
-Framework.Graphed2.Graph --|> Framework.Graphed2.Serializable
-Framework.Graphed2.CircleNode --|> Framework.Graphed2.Node
-Framework.Graphed2.FormLayout --|> Framework.Graphed2.LayoutManager
-Framework.Graphed2.GraphFrame --|> Framework.Graphed2.JFrame
-Framework.Graphed2.GraphPanel --|> Framework.Graphed2.JPanel
-Framework.Graphed2.LineEdge --|> Framework.Graphed2.AbstractEdge
-Framework.Graphed2.LineStyle --|> Framework.Graphed2.Serializable
-Framework.Graphed2.LineStyleEditor --|> Framework.Graphed2.PropertyEditorSupport
-Framework.Graphed2.PointNode --|> Framework.Graphed2.Node
-Framework.Graphed2.PropertySheet ..> java.lang.SuppressWarnings
-Framework.Graphed2.PropertySheet --|> Framework.Graphed2.JPanel
-Framework.Graphed2.SimpleGraph --|> Framework.Graphed2.Graph
-Framework.Graphed2.SimpleGraphEditor ..> java.lang.SuppressWarnings
-Framework.Graphed2.ToolBar --|> Framework.Graphed2.JPanel
-Framework.Graphed2.Edge --|> Framework.Graphed2.Serializable
-Framework.Graphed2.Edge --|> java.lang.Cloneable
-Framework.Graphed2.Node --|> Framework.Graphed2.Serializable
-Framework.Graphed2.Node --|> java.lang.Cloneable
+package Framework.Graphed2 <<Frame>> {
+    abstract AbstractEdge
+    abstract Graph
+    
+    class GraphFrame
+    class GraphPanel
+    class JFrame
+    class JPanel
+    class LineStyle
+    class LineStyleEditor
+    interface Edge{
+        +draw(g2: Graphics2D )
+        +contains(aPoint: Point2D ) : boolean
+        +connect(aStart : Node, anEnd : Node)
+        +getStart() : Node
+        +getEnd() : Node
+        +getConnectionPoints() : Line2D
+        +getBounds(g2 : Graphics2D)
+        +clone() : Object
+    }
+    class PropertyEditorSupport
+    class PropertySheet
+    class SimpleGraph
+    class SimpleGraphEditor
+    class ToolBar
+    interface LayoutManager{
+    +addLayoutComponent(name String, comp Component)
+    +removeLayoutComponent(comp Component)
+    +preferredLayoutSize(parent, Container) :Dimension
+    +minimumLayoutSize(parent Container) : Dimension
+    +layoutContainer(parent Container)
+} 
+    interface Node{
+    +draw(g2 : Graphics2D )
+    +translate(dx :double , dy : double )
+    +contains(aPoint : Point2D )
+    +getConnectionPoint(aPoint :Point2D  )
+    +getBounds()
+    +clone() : Object 
+}
+}
+
+
+
+package LayoutManagers <<Folder>> { 
+    class FormLayout
+}
+
+package Edges <<Folder>> { 
+    class LineEdge
+}
+
+package Nodes <<Folder>> {
+    class CircleNode
+    class PointNode
+}
+
+
+
+
+
+
+
+FormLayout .left.|> LayoutManager
+
+AbstractEdge ..|> Edge
+CircleNode ..|> Node
+SimpleGraphEditor --> JFrame
+GraphFrame --|> JFrame
+GraphPanel --|> JPanel
+LineEdge --|> AbstractEdge
+LineStyleEditor --|> PropertyEditorSupport
+PointNode ..|> Node
+
+PropertySheet --|> JPanel
+SimpleGraph --|> Graph
+
+ToolBar --|> JPanel
 @enduml
 ```
