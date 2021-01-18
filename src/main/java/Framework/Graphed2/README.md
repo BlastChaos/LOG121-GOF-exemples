@@ -31,20 +31,20 @@ package Framework.Graphed2 <<Frame>> {
     class SimpleGraphEditor
     class ToolBar
     interface LayoutManager{
-    +addLayoutComponent(name String, comp Component)
-    +removeLayoutComponent(comp Component)
-    +preferredLayoutSize(parent, Container) :Dimension
-    +minimumLayoutSize(parent Container) : Dimension
-    +layoutContainer(parent Container)
-} 
+        +addLayoutComponent(name String, comp Component)
+        +removeLayoutComponent(comp Component)
+        +preferredLayoutSize(parent, Container) :Dimension
+        +minimumLayoutSize(parent Container) : Dimension
+        +layoutContainer(parent Container)
+    } 
     interface Node{
-    +draw(g2 : Graphics2D )
-    +translate(dx :double , dy : double )
-    +contains(aPoint : Point2D )
-    +getConnectionPoint(aPoint :Point2D  )
-    +getBounds()
-    +clone() : Object 
-}
+        +draw(g2 : Graphics2D )
+        +translate(dx :double , dy : double )
+        +contains(aPoint : Point2D )
+        +getConnectionPoint(aPoint :Point2D  )
+        +getBounds()
+        +clone() : Object 
+    }
 }
 
 
